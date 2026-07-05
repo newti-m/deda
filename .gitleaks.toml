@@ -1,0 +1,13 @@
+title = "deda gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known-safe artifacts"
+regexes = [
+  '''\$ANSIBLE_VAULT;[0-9.]+;AES256''',
+]
+paths = [
+  '''.*\.pub$''',
+]
