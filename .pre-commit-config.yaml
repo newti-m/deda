@@ -1,0 +1,21 @@
+minimum_pre_commit_version: "3.5.0"
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks                       # scans staged changes on commit
+
+  - repo: local
+    hooks:
+      - id: ansible-vault-encrypted
+        name: Ensure vault files are encrypted
+        entry: scripts/check-vault-encrypted.sh
+        language: script
+        files: '(^|/)(vault\.ya?ml|.*\.vault)$'
+        pass_filenames: true
+
+      - id: no-private-keys
+        name: Block private key material
+        entry: scripts/check-no-private-keys.sh
+        language: script
+        pass_filenames: true

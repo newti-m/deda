@@ -1,0 +1,15 @@
+title = "homelab-ansible gitleaks config"
+
+[extend]
+useDefault = true   # inherit all 150+ built-in rules
+
+[allowlist]
+description = "Ansible Vault ciphertext and known-safe artifacts are not leaks"
+regexes = [
+  '''\$ANSIBLE_VAULT;[0-9.]+;AES256''',   # encrypted vault content is safe
+  '''795389345645199413''',                # Discord guild/channel ID (public, not a secret)
+]
+paths = [
+  '''ansible-collection-hardening/.*''',   # vendored upstream, scanned by its own CI
+  '''.*\.pub$''',                          # public keys are fine
+]
